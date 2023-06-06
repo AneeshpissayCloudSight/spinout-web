@@ -14,7 +14,6 @@ const config: ClientConfig = {
 };
 
 const appId: string = "9c3048051c4345cbb35188ff6850fe99"; //ENTER APP ID HERE
-const token: string | null ="007eJxTYPh5yJmZkXdNk9u9tbFC0/JcKs5zH7+7vOet8kf/Fcsd8v4pMFgmGxuYWBiYGiabGJuYJiclGZsaWlikpZlZmBqkpVpa1n2qTWkIZGRIar3GxMgAgSA+O0NxQWZefmkJAwMAxQ0hiw==";
 
 const App = () => {
   const [inCall, setInCall] = useState(false);
@@ -83,8 +82,13 @@ const VideoCall = (props: {
           return prevUsers.filter((User) => User.uid !== user.uid);
         });
       });
-
-      await client.join(appId, name, token, null);
+      if(channelName.length === 0) {
+        alert("Please enter channel name");
+        return;
+      }
+      let response = (await fetch(`https://agora-token-service-production-edcf.up.railway.app/rtc/${channelName}/1/uid/0/`)).json();
+      let data = await response;
+      await client.join(appId, name, data.rtcToken, null);
       if (tracks) await client.publish([tracks[0], tracks[1]]);
       setStart(true);
 
