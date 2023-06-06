@@ -173,14 +173,14 @@ export const Controls = (props: {
 
   return (
     <div className="controls">
-      {/* <p className={trackState.audio ? "on" : ""}
+      <p className={trackState.audio ? "on" : ""}
         onClick={() => mute("audio")}>
         {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
       </p>
       <p className={trackState.video ? "on" : ""}
         onClick={() => mute("video")}>
         {trackState.video ? "MuteVideo" : "UnmuteVideo"}
-      </p> */}
+      </p>
       {<p onClick={() => leaveChannel()}>Leave</p>}
     </div>
   );
