@@ -86,7 +86,7 @@ const VideoCall = (props: {
         alert("Please enter channel name");
         return;
       }
-      let response = (await fetch(`https://agora-token-service-production-edcf.up.railway.app/rtc/${channelName}/1/uid/0/`)).json();
+      let response = (await fetch(`https://agora-node-token-server-production-fcac.up.railway.app/rtc/${channelName}/publisher/uid/0/`)).json();
       let data = await response;
       await client.join(appId, name, data.rtcToken, null);
       if (tracks) await client.publish([tracks[0], tracks[1]]);
@@ -104,6 +104,7 @@ const VideoCall = (props: {
 
   return (
     <div className="App">
+      <h6>Channel Name - {channelName}</h6>
       {ready && tracks && (
         <Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
       )}
@@ -172,14 +173,14 @@ export const Controls = (props: {
 
   return (
     <div className="controls">
-      <p className={trackState.audio ? "on" : ""}
+      {/* <p className={trackState.audio ? "on" : ""}
         onClick={() => mute("audio")}>
         {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
       </p>
       <p className={trackState.video ? "on" : ""}
         onClick={() => mute("video")}>
         {trackState.video ? "MuteVideo" : "UnmuteVideo"}
-      </p>
+      </p> */}
       {<p onClick={() => leaveChannel()}>Leave</p>}
     </div>
   );
